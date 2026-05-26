@@ -72,6 +72,15 @@ const createSsrbtn = () => {
   }
 }
 
+
+const createFukidashi = () => {
+  const el0 = document.createElement('img');
+  el0.src = 'images/fukidashi.png';
+  el0.id = 'fukidashi';
+  el0.style.display = 'none'
+  bodyEl.appendChild(el0);
+}
+
 createCursor()
 createExplosion()
 createSsrb0()
@@ -83,3 +92,4 @@ createSsrb(5)
 createSsrb100()
 createSsrb101()
 createSsrbtn()
+createFukidashi()
