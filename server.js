@@ -1,7 +1,7 @@
 // Serverless環境でのサーバーコード
 const express = require('express');
 const serverless = require('serverless-http');
-const app = express();
+const app = require('./server');
 
 app.use(express.static('public'));
 
