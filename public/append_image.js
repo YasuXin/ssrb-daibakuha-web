@@ -42,8 +42,8 @@ const createSsrb = (ssrbNum) => {
 
 const createSsrb100 = () => {
   const el0 = document.createElement('img');
-  el0.src = 'images/ssrb100.png';
-  el0.id = 'ssrb100';
+  el0.src = 'images/ssrb-100.png';
+  el0.id = 'ssrb-100';
   el0.style.display = 'none'
   bodyEl.appendChild(el0);
 }
@@ -66,7 +66,7 @@ const createSsrbtn = () => {
   for (let i = 0; i < 13; i++) {
     const el = document.createElement('img');
     el.src = 'images/ssrbtn' + i + '.png';
-    el.id = 'ssrb' + i;
+    el.id = 'ssrbtn' + i;
     el.style.display = 'none'
     bodyEl.appendChild(el);
   }

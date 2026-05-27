@@ -208,7 +208,6 @@ const createTarget = (x, y) => {
 const playMusic = (path) => {
   const se = document.getElementById(path).cloneNode(true)
   document.body.appendChild(se);
-  console.log(se);
 
   se.addEventListener('ended', () => {
     document.body.removeChild(se);
@@ -313,33 +312,38 @@ let runRunner = Runner.create();
 
 // SSRBタイトル画像の初期処理
 for (let i = 1; i <= 3; i++) {
+
   let imgRand1 = Math.floor(Math.random() * 8);
 
-  let imgElement = document.createElement('img');
-  imgElement.width = 140;
+  let id = ""
+
   if(imgRand1 === 0) {
     let imgRand2 = Math.floor(Math.random() * 2);
     if(imgRand2 === 0) {
-      imgElement.src = basicImagePath + "ssrb-0-0.png";
+      id = "ssrb-0-0";
     } else if(imgRand2 === 1) {
-      imgElement.src = basicImagePath + "ssrb-0-10.png";
+      id = "ssrb-0-10";
     }
 
   } else if(imgRand1 >= 1 && imgRand1 <= 5) {
     let imgRand2 = Math.floor(Math.random() * 20);
-    imgElement.src = basicImagePath + "ssrb-" + imgRand1 + "-" + imgRand2 + ".png";
+    id = "ssrb-" + imgRand1 + "-" + imgRand2;
 
   } else if(imgRand1 === 6) {
     let imgRand2 = Math.floor(Math.random() * 2);
     if(imgRand2 === 0) {
-      imgElement.src = basicImagePath + "ssrb-101-0.png";
+      id = "ssrb-101-0";
     } else if(imgRand2 === 1) {
-      imgElement.src = basicImagePath + "ssrb-101-10.png";
+      id = "ssrb-101-10";
     }
 
   } else if(imgRand1 === 7) {
-    imgElement.src = basicImagePath + "ssrb100.png";
+    id = "ssrb-100";
   }
+
+  let imgElement = document.getElementById(id).cloneNode(true);
+  imgElement.width = 140;
+  imgElement.style.display = 'inline-block'
 
   document.getElementById('images').appendChild(imgElement);
 }
@@ -462,7 +466,6 @@ const stopGame = () => {
           Composite.remove(engine.world, body);
         }
       }, 5)
-
     }
     if (!targetFlag) {
       break; // ターゲットカーソルがなければwhileから抜け出す
@@ -483,9 +486,10 @@ const stopGame = () => {
   bestChainElement.innerHTML = bestChain + '';
   explosionsElement.classList.add('hidden');
 
-  const ssrbtnElement = document.createElement("img")
   const randSsrbtn = Math.floor(Math.random() * 13);
-  ssrbtnElement.src = basicImagePath + "ssrbtn" + randSsrbtn + ".png";
+  const id = "ssrbtn" + randSsrbtn;
+  const ssrbtnElement = document.getElementById(id).cloneNode(true)
+  ssrbtnElement.style.display = 'inline-block'
   ssrbtnElement.width = 130;
   if (resultSsrbtnElement.children.length > 0) {
     resultSsrbtnElement.removeChild(resultSsrbtnElement.children[0]);
