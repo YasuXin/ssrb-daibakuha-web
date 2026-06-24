@@ -384,7 +384,7 @@ for (let i = 1; i <= 5; i++) {
     }
 
   } else if(imgRand1 === 7) {
-    imgElement.src = basicImagePath + "ssrb100.png";
+    imgElement.src = basicImagePath + "ssrb-100.png";
   }
 
   document.getElementById('images').appendChild(imgElement);
