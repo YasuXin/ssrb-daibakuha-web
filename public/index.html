@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -72,30 +70,30 @@
       <div id="scoreBox">
         <span id="scoreTitle">SCORE:</span>
         <span id="score">0</span>
+        <div id="plusScore"></div>
       </div>
 
       <div id="chainAndCommentAndDeleted">
         <div id="chainAndComment">
-          <div id="chain"><span style="font-size:48px;">0</span>  CHAINS!</div>
+          <div id="chain"><span>0</span>  CHAINS!</div>
           <div id="comment">Let's Play</div>
         </div>
 
-        <div id="deletedssrb">
-          <div id="deletedssrbImg"><img src="images/ssrb-100.png" width="70" alt=""></div>
+        <div id="deletedSsrb">
+          <div id="deletedSsrbImg"><img src="images/ssrb100.png" alt=""></div>
           <div id="allDeleted"> x 0</div>
         </div>
       </div>
 
-      <div>
+      <div id="btn-box">
         <button id="startButton" onclick="startGame()" class="button">START!</button>
         <button id="howToPlayButton" onclick="displayHowToPlay()" class="button">遊び方</button>
-        <button id="resetButton" onclick="reloadGame()" class="button hidden">RELOAD!</button>
-
+        <button id="resetButton" onclick="reloadGame()" class="button hidden">RELOAD</button>
+        <button id="musicOffButton" onclick="switchOnMusic()" class="button music-btn"><img src="images/speaker_off.png" alt="OFF"></button>
+        <button id="musicOnButton" onclick="switchOffMusic()" class="button music-btn hidden"><img src="images/speaker_on.png" alt="ON"></button>
       </div>
 
     </div>
-
-    <div id="plusScore"></div>
 
     <div id="explosions" class="hidden"></div>
 
@@ -103,11 +101,11 @@
 
       <div id="htpPage1" class="htpContainer visibleHtpContent">
         <div class="htpTitle">
-          <h2>説明</h2>
+          <h1>説明</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent">
-          <img src="images/setsumei.png" alt="ししろんの命令" width="350" style="float:right; margin:20px;">
+          <img src="images/setsumei.png" alt="ししろんの命令" style="float:right; margin:20px; width: 30vw;">
           <p>今日も楽しく元気に地下労働に励むSSRBたち。</p>
           <p>しかし掘削を進めていると、つるはしでは掘れない硬い岩盤に当たってしまいました。</p>
           <p style="font-size: 1.5em;">「よし、おまえら自爆しろwww」</p>
@@ -124,11 +122,11 @@
 
       <div id="htpPage2" class="htpContainer">
         <div class="htpTitle">
-          <h2>遊び方①</h2>
+          <h1>遊び方①</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent">
-          <img src="images/screen.png" alt="画面" width="300" style="float:right; margin:20px;">
+          <img src="images/screen.png" alt="画面" style="float:right; margin:20px; width: 40vw;">
           <p>画面右側のSTART!ボタンを押すとゲームが開始します。</p>
           <p>ゲームが開始されたら、画面左側に50体のSSRBが出現します。SSRBを左クリックすると、クリックしたSSRBをターゲットに指定します。
             そのまま隣接する同じ色のSSRBにドラッグすると、その個体もターゲットに指定され、連鎖状態となります。</p>
@@ -148,11 +146,11 @@
 
       <div id="htpPage3" class="htpContainer">
         <div class="htpTitle">
-          <h2>遊び方②</h2>
+          <h1>遊び方②</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent">
-          <img src="images/rightScreen.png" alt="画面右側" width="200" style="float:right; margin:20px;">
+          <img src="images/rightScreen.png" alt="画面右側" style="float:right; margin:20px; width: 25vw;">
           <h3>画面右の説明</h3>
 
           <p>Timerには残り時間が表示されます。ゲームの制限時間は120秒で、条件によって残り時間が上下します。</p>
@@ -175,17 +173,17 @@
 
       <div id="htpPage4" class="htpContainer">
         <div class="htpTitle">
-          <h2>遊び方③</h2>
+          <h1>遊び方③</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent">
           <div style="float:right; margin:20px; display: grid; grid-template-columns: 1fr 1fr;">
-            <img src="images/ssrb-1-0.png" alt="SSRB" width="80" >
-            <img src="images/ssrb-1-1.png" alt="SSRB" width="80" >
-            <img src="images/ssrb-2-8.png" alt="SSRB" width="80" >
-            <img src="images/ssrb-3-5.png" alt="SSRB" width="80" >
-            <img src="images/ssrb-4-0.png" alt="SSRB" width="80" >
-            <img src="images/ssrb-5-2.png" alt="SSRB" width="80" >
+            <img src="images/ssrb-1-0.png" alt="SSRB" style="width: 8vw;">
+            <img src="images/ssrb-1-1.png" alt="SSRB" style="width: 8vw;">
+            <img src="images/ssrb-2-8.png" alt="SSRB" style="width: 8vw;">
+            <img src="images/ssrb-3-5.png" alt="SSRB" style="width: 8vw;">
+            <img src="images/ssrb-4-0.png" alt="SSRB" style="width: 8vw;">
+            <img src="images/ssrb-5-2.png" alt="SSRB" style="width: 8vw;">
           </div>
           <h3>SSRBについて</h3>
           <p>SSRBは「基本色」、「透明」、「金色」の3種類があり、それぞれが異なる特性を持ちます。</p>
@@ -205,16 +203,16 @@
 
       <div id="htpPage5" class="htpContainer">
         <div class="htpTitle">
-          <h2>遊び方④</h2>
+          <h1>遊び方④</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent">
-          <img src="images/ssrb-0-0.png" alt="SSRB" width="120" style="float:right; margin:20px;">
+          <img src="images/ssrb-0-0.png" alt="SSRB" style="float:right; margin:20px; width: 8vw;">
           <h3>透明SSRB</h3>
 
           <p>透明SSRBは金色SSRB以外と連鎖できます。透明SSRBを使用することで、複数の色のSSRBを同時に連鎖させることが可能です。
             ただし、<span style="color:red">透明SSRBは最初の1体目には選択できません。</span></p>
-          <img src="images/ssrb-101-0.png" alt="SSRB" width="120" style="float:right; margin:20px;">
+          <img src="images/ssrb-101-0.png" alt="SSRB" style="float:right; margin:20px; width: 8vw;">
           <h3>金色SSRB</h3>
 
           <p>金色SSRBは同じ色のSSRBのみと連鎖できます。<span style="color: red;">透明SSRBとは連鎖できません。</span>
@@ -231,12 +229,12 @@
 
       <div id="htpPage6" class="htpContainer">
         <div class="htpTitle">
-          <h2>遊び方⑤</h2>
+          <h1>遊び方⑤</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent">
           <h3>ゲーム終了後</h3>
-          <img src="images/result.png" alt="SSRB" width="300" style="float:right; margin:20px;">
+          <img src="images/result.png" alt="SSRB" style="float:right; margin:20px; width: 30vw;">
           <p>ゲーム終了後には総合評価画面が表示されます。獲得したすべての得点と、最大連鎖数に応じてDからSSSまでの評価を出力します。（その他の要素は総合評価に影響しません。）</p>
           <p>画面右のSTART!ボタンを押せば、再度ゲームを開始できます。なお、それまでの結果の一切は新しいゲームには受け継がれません。</p>
           <p>このゲームはフロントエンドのみで製作されており、一度きりのものです。したがって結果に応じて景品が発生したりすることなどは一切ありません。</p>
@@ -249,11 +247,11 @@
 
       <div id="htpPage7" class="htpContainer">
         <div class="htpTitle">
-          <h2>遊び方⑥</h2>
+          <h1>遊び方⑥</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent">
-          <img src="images/chainScreen.png" alt="連鎖の例" width="280" style="float:right; margin:20px;">
+          <img src="images/chainScreen.png" alt="連鎖の例" style="float:right; margin:20px; width: 25vw;">
           <h3>コツ</h3>
           <p>爆破の際に獲得できる得点は連鎖数に応じて指数関数的に増加していくため、１度の爆破で１体でも多くのSSRBを連鎖させることで高得点を稼げます。</p>
           <p>右図のように透明SSRBを経由して複数の色を連鎖させることで連鎖数を上げやすくなります（赤矢印は連鎖の経路でゲーム画面には表示されません）。</p>
@@ -268,7 +266,7 @@
 
       <div id="htpPage8" class="htpContainer">
         <div class="htpTitle">
-          <h2>参考</h2>
+          <h1>参考</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent htpTableWrapper">
@@ -437,7 +435,7 @@
 
               </table>
             </div>
-            <small style="width: 400px; margin-top: 5px;">左図の式は e^(連鎖数)*100/連鎖数 で、実際の得点には式から 乱数*100 を引いたものになります</small>
+            <small>左図の式は e^(連鎖数)*100/連鎖数 で、実際の得点には式から 乱数*100 を引いたものになります</small>
           </div>
         </div>
 
@@ -450,13 +448,13 @@
 
       <div id="htpPage9" class="htpContainer">
         <div class="htpTitle">
-          <h2>SPECIAL THANKS</h2>
+          <h1>SPECIAL THANKS</h1>
           <button id="closeHtpButton" onclick="hideHowToPlay()" class="button">×</button>
         </div>
         <div class="htpContent">
           <div style="float:right; margin:10px;">
-            <img src="images/ssrb-3-0.png" alt="ssrb" width="120" style="margin-right: -50px">
-            <img src="images/ssrbtn.png" alt="ssrbtn" width="200">
+            <img src="images/ssrb-3-0.png" alt="ssrb" style="margin-right: -50px; width: 10vw">
+            <img src="images/ssrbtn.png" alt="ssrbtn" style="width: 16vw;">
           </div>
 
           <p>効果音　:　効果音ラボ様　　URL　:　<a href="https://soundeffect-lab.info/" target="_blank">https://soundeffect-lab.info/</a></p>

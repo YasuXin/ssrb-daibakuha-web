@@ -9,17 +9,11 @@ let Engine = Matter.Engine,
 // create an engine
 let engine = Engine.create();
 
-
 /* 定数と変数の定義 */
 // 定数
-const width = 680;
-const height = 525;
 const lineWidth = 20;
 //const fieldCount = 3;
-const ballCount = 50;
-const ballRad = 40;
-const skeltonRad = 30;
-const goldenRad = 50;
+const ballCount = 60
 const explosionTime = 400
 const explosionCount = 2;
 const goldenExplosionCount = 3;
@@ -75,6 +69,17 @@ const htpPrevButtonElements = document.querySelectorAll(".prevButton");
 
 
 //変数
+let width = window.innerWidth / 1960 * 1200;
+let height = window.innerWidth / 2 - 120;
+
+let x_rate = window.innerWidth / 1960;
+
+let ballRad = 60 * x_rate;
+let skeltonRad = 40 * x_rate;
+let goldenRad = 90 * x_rate;
+let explosionWidth = 150 * x_rate
+let target_scale = 0.4 * x_rate
+
 let selectedSsrbs = []
 let targets = []
 let fragDraggable = false
@@ -87,11 +92,51 @@ let gameEnd = false;
 let bestChain = 0;
 let bestScore = 0;
 
+
 let currentPage = 1;
 const numberOfPages = 9;
 
+let musicOn = false;
 
 const htpList = htpWrapperElement.querySelectorAll('.htpContainer')
+
+const switchOnMusic = () => {
+  document.getElementById('musicOffButton').classList.add('hidden');
+  document.getElementById('musicOnButton').classList.remove('hidden');
+  musicOn = true;
+}
+
+const switchOffMusic = () => {
+  document.getElementById('musicOnButton').classList.add('hidden');
+  document.getElementById('musicOffButton').classList.remove('hidden');
+  musicOn = false;
+}
+
+window.addEventListener('resize', () => {
+  width = window.innerWidth / 1960 * 1200;
+  height = window.innerWidth / 2 - 60;
+  x_rate = window.innerWidth / 1960;
+  ballRad = 60 * x_rate;
+  skeltonRad = 40 * x_rate;
+  goldenRad = 90 * x_rate;
+  explosionWidth = 150 * x_rate
+  target_scale = 0.4 * x_rate
+
+  render = Render.create({
+    element: document.getElementById('canvas'),
+    options: {
+      wireframes: false,
+      width: width,
+      height: height,
+      background: 'transparent',
+      pixelRatio: 2,
+      hosBounds: true,
+    },
+    engine: engine
+  });
+
+  document.getElementById('canvas').firstChild.remove()
+})
 
 const showHtpNextContent = () => {
 
@@ -194,8 +239,8 @@ const createTarget = (x, y) => {
     render: {
       sprite: {
         texture: cursorPath,
-        xScale: 0.2,
-        yScale: 0.2
+        xScale: target_scale,
+        yScale: target_scale,
       },
       opacity: 0.7,
     },
@@ -206,6 +251,7 @@ const createTarget = (x, y) => {
 }
 
 const playMusic = (path) => {
+  if (!musicOn) return
   const se = document.getElementById(path).cloneNode(true)
   document.body.appendChild(se);
 
@@ -218,6 +264,7 @@ const playMusic = (path) => {
 }
 
 const playBgm = (path) => {
+  if (!musicOn) return
   const se = document.getElementById(path).cloneNode(true)
   se.classList.add('bgm');
   document.body.appendChild(se);
@@ -311,39 +358,34 @@ Render.run(render);
 let runRunner = Runner.create();
 
 // SSRBタイトル画像の初期処理
-for (let i = 1; i <= 3; i++) {
-
+for (let i = 1; i <= 5; i++) {
   let imgRand1 = Math.floor(Math.random() * 8);
 
-  let id = ""
-
+  let imgElement = document.createElement('img');
+  imgElement.style.width = 100 / 6 + '%';
   if(imgRand1 === 0) {
     let imgRand2 = Math.floor(Math.random() * 2);
     if(imgRand2 === 0) {
-      id = "ssrb-0-0";
+      imgElement.src = basicImagePath + "ssrb-0-0.png";
     } else if(imgRand2 === 1) {
-      id = "ssrb-0-10";
+      imgElement.src = basicImagePath + "ssrb-0-10.png";
     }
 
   } else if(imgRand1 >= 1 && imgRand1 <= 5) {
     let imgRand2 = Math.floor(Math.random() * 20);
-    id = "ssrb-" + imgRand1 + "-" + imgRand2;
+    imgElement.src = basicImagePath + "ssrb-" + imgRand1 + "-" + imgRand2 + ".png";
 
   } else if(imgRand1 === 6) {
     let imgRand2 = Math.floor(Math.random() * 2);
     if(imgRand2 === 0) {
-      id = "ssrb-101-0";
+      imgElement.src = basicImagePath + "ssrb-101-0.png";
     } else if(imgRand2 === 1) {
-      id = "ssrb-101-10";
+      imgElement.src = basicImagePath + "ssrb-101-10.png";
     }
 
   } else if(imgRand1 === 7) {
-    id = "ssrb-100";
+    imgElement.src = basicImagePath + "ssrb100.png";
   }
-
-  let imgElement = document.getElementById(id).cloneNode(true);
-  imgElement.width = 140;
-  imgElement.style.display = 'inline-block'
 
   document.getElementById('images').appendChild(imgElement);
 }
@@ -399,8 +441,7 @@ const startGame = () => {
     timerElement.style.color = "black";
 
     scoreElement.innerHTML = "0";
-    chainElement.innerHTML = '<span style="font-size:48px;">0</span>  HITS!';
-    commentElement.innerHTML = "SCORE";
+    chainElement.innerHTML = '<span style="font-size: 3vw;">0</span>  HITS!';
     allDeletedElement.innerHTML = " x 0";
     startButtonElement.classList.add('hidden');
     howToPlayButtonElement.classList.add('hidden');
@@ -466,6 +507,7 @@ const stopGame = () => {
           Composite.remove(engine.world, body);
         }
       }, 5)
+
     }
     if (!targetFlag) {
       break; // ターゲットカーソルがなければwhileから抜け出す
@@ -486,11 +528,10 @@ const stopGame = () => {
   bestChainElement.innerHTML = bestChain + '';
   explosionsElement.classList.add('hidden');
 
+  const ssrbtnElement = document.createElement("img")
   const randSsrbtn = Math.floor(Math.random() * 13);
-  const id = "ssrbtn" + randSsrbtn;
-  const ssrbtnElement = document.getElementById(id).cloneNode(true)
-  ssrbtnElement.style.display = 'inline-block'
-  ssrbtnElement.width = 130;
+  ssrbtnElement.src = basicImagePath + "ssrbtn" + randSsrbtn + ".png";
+  ssrbtnElement.style.width = 90 + '%';
   if (resultSsrbtnElement.children.length > 0) {
     resultSsrbtnElement.removeChild(resultSsrbtnElement.children[0]);
   }
@@ -715,11 +756,11 @@ document.addEventListener("mouseup", function() {
       )
     scoreElement.innerHTML = '<span class="anime_text">' + score.toLocaleString() + "</span>";
     if (selectedSsrbs.length >= 7) {
-      chainElement.innerHTML = '<span style="font-size: 54px;" class="gaming anime_text">' + selectedSsrbs.length + "</span>  HITS!";
+      chainElement.innerHTML = '<span style="font-size: 4.2vw;" class="gaming anime_text">' + selectedSsrbs.length + "</span>  HITS!";
     } else if (selectedSsrbs[0][1].label === "goldenBall") {
-      chainElement.innerHTML = '<span style="font-size: 54px;" class="golden anime_text">' + selectedSsrbs.length + "</span>  HITS!";
+      chainElement.innerHTML = '<span style="font-size: 4.2vw;" class="golden anime_text">' + selectedSsrbs.length + "</span>  HITS!";
     } else  {
-      chainElement.innerHTML = '<span style="font-size: 48px;" class="anime_text">' + selectedSsrbs.length + "</span>  CHAINS!";
+      chainElement.innerHTML = '<span style="font-size: 3.5vw;" class="anime_text">' + selectedSsrbs.length + "</span>  CHAINS!";
     }
 
     if (selectedSsrbs[0][1].label === "goldenBall") {
@@ -745,29 +786,29 @@ document.addEventListener("mouseup", function() {
     } else if (selectedSsrbs.length === 9) {
       playMusic(ohFemalePath)
       playMusic(crap1Path)
-      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 42px;">WONDERFUL!</span>';
+      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 2.4vw;">WONDERFUL!</span>';
     } else if (selectedSsrbs.length === 10) {
       playMusic(ohFemalePath)
       playMusic(crap1Path)
-      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 42px;">BRILLIANT!</span>';
+      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 2.4vw;">BRILLIANT!</span>';
     } else if (selectedSsrbs.length === 11) {
       playMusic(ohMalePath)
       playMusic(crap2Path)
-      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:2px; font-size: 42px;">BRILLIANT!</span>';
+      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:2px; font-size: 2.4vw;">BRILLIANT!</span>';
     } else if (selectedSsrbs.length === 12) {
       playMusic(ohMalePath)
       playMusic(crap2Path)
-      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:2px; font-size: 42px;">FABULOUS!</span>';
+      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:2px; font-size: 2.4vw;">FABULOUS!</span>';
     } else if (selectedSsrbs.length === 13) {
       playMusic(yeahPath)
       playMusic(yellowScreamPath);
       playMusic(crap3Path)
-      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px;">FABULOUS!</span>';
+      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 3vw;">FABULOUS!</span>';
     } else if (selectedSsrbs.length >= 14) {
       playMusic(yeahPath)
       playMusic(yellowScreamPath);
       playMusic(crap3Path)
-      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px;">OUTSTANDING!</span>';
+      commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 3vw;">OUTSTANDING!</span>';
     }
 
     // 爆発のエフェクトを生成する
@@ -782,12 +823,19 @@ document.addEventListener("mouseup", function() {
 
           let explosion = document.createElement("img");
           explosion.src = explosionGifPath;
-          explosion.width = 100;
+          explosion.width = explosionWidth;
           explosion.id = "explosion" + allDeletedSsrbs;
           explosion.style.position = "absolute";
-          explosion.style.left = poX + "px";
-          explosion.style.top = poY - rad / 2 + "px";
+
+          explosion.style.left = poX - rad * 1.2 + "px";
+          explosion.style.top = poY - rad * 1.2 + "px";
+
           explosionsElement.appendChild(explosion)
+
+          console.log('poX : ' + poX)
+          console.log('poY : ' + poY)
+          console.log('left : ' + explosion.style.left)
+          console.log('top : ' + explosion.style.top)
 
           setTimeout(function() {
             explosionsElement.innerHTML = "";
@@ -850,7 +898,7 @@ document.addEventListener("mouseup", function() {
   if (selectedSsrbs.length >= explosionCount && targets.length >= explosionCount) {
     for (let i = 0; i < selectedSsrbs.length; i++) {
       let randX = Math.floor(Math.random() * (width - 80)) + 40;
-      let randY = Math.floor(Math.random() * (height - 120)) - 380;
+      let randY = -100;
       let rad = Math.floor(Math.random() * 5) + ballRad;
 
       let skeltonAppearRate = Math.ceil(Math.random() * 12);
@@ -1121,11 +1169,11 @@ document.addEventListener("touchend", function(events) {
       )
       scoreElement.innerHTML = '<span class="anime_text">' + score.toLocaleString() + "</span>";
       if (selectedSsrbs.length >= 7) {
-        chainElement.innerHTML = '<span style="font-size: 54px;" class="gaming anime_text">' + selectedSsrbs.length + "</span>  HITS!";
+        chainElement.innerHTML = '<span style="font-size: 4.2vw;" class="gaming anime_text">' + selectedSsrbs.length + "</span>  HITS!";
       } else if (selectedSsrbs[0][1].label === "goldenBall") {
-        chainElement.innerHTML = '<span style="font-size: 54px;" class="golden anime_text">' + selectedSsrbs.length + "</span>  HITS!";
+        chainElement.innerHTML = '<span style="font-size: 4.2vw;" class="golden anime_text">' + selectedSsrbs.length + "</span>  HITS!";
       } else {
-        chainElement.innerHTML = '<span style="font-size: 48px;" class="anime_text">' + selectedSsrbs.length + "</span>  CHAINS!";
+        chainElement.innerHTML = '<span style="font-size: 3.5vw;" class="anime_text">' + selectedSsrbs.length + "</span>  CHAINS!";
       }
 
       if (selectedSsrbs[0][1].label === "goldenBall") {
@@ -1151,29 +1199,29 @@ document.addEventListener("touchend", function(events) {
       } else if (selectedSsrbs.length === 9) {
         playMusic(ohFemalePath)
         playMusic(crap1Path)
-        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 42px;">WONDERFUL!</span>';
+        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 2.4vw;">WONDERFUL!</span>';
       } else if (selectedSsrbs.length === 10) {
         playMusic(ohFemalePath)
         playMusic(crap1Path)
-        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 42px;">BRILLIANT!</span>';
+        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 2.4vw;">BRILLIANT!</span>';
       } else if (selectedSsrbs.length === 11) {
         playMusic(ohMalePath)
         playMusic(crap2Path)
-        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:2px; font-size: 42px;">BRILLIANT!</span>';
+        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:2px; font-size: 2.4vw;">BRILLIANT!</span>';
       } else if (selectedSsrbs.length === 12) {
         playMusic(ohMalePath)
         playMusic(crap2Path)
-        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:2px; font-size: 42px;">FABULOUS!</span>';
+        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:2px; font-size: 2.4vw;">FABULOUS!</span>';
       } else if (selectedSsrbs.length === 13) {
         playMusic(yeahPath)
         playMusic(yellowScreamPath);
         playMusic(crap3Path)
-        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px;">FABULOUS!</span>';
+        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 3vw;">FABULOUS!</span>';
       } else if (selectedSsrbs.length >= 14) {
         playMusic(yeahPath)
         playMusic(yellowScreamPath);
         playMusic(crap3Path)
-        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px;">OUTSTANDING!</span>';
+        commentElement.innerHTML = '<span class="gaming anime_text" style="letter-spacing:1px; font-size: 3vw;">OUTSTANDING!</span>';
       }
 
       // 爆発のエフェクトを生成する
@@ -1187,11 +1235,13 @@ document.addEventListener("touchend", function(events) {
             let rad = Math.round(engine.world.bodies[i].circleRadius);
             let explosion = document.createElement("img");
             explosion.src = explosionGifPath;
-            explosion.width = 100;
+            explosion.width = explosionWidth;
             explosion.id = "explosion" + allDeletedSsrbs;
             explosion.style.position = "absolute";
-            explosion.style.left = poX + "px";
-            explosion.style.top = poY - rad / 2 + "px";
+
+            explosion.style.left = poX - rad * 1.2 + "px";
+            explosion.style.top = poY - rad * 1.2 + "px";
+
             explosionsElement.appendChild(explosion)
 
             setTimeout(function () {
@@ -1254,7 +1304,7 @@ document.addEventListener("touchend", function(events) {
     if (selectedSsrbs.length >= explosionCount && targets.length >= explosionCount) {
       for (let i = 0; i < selectedSsrbs.length; i++) {
         let randX = Math.floor(Math.random() * (width - 80)) + 40;
-        let randY = Math.floor(Math.random() * (height - 120)) - 380;
+        let randY = -100;
         let rad = Math.floor(Math.random() * 5) + ballRad;
 
         let skeltonAppearRate = Math.ceil(Math.random() * 12);

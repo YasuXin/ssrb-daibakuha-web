@@ -1,11 +1,11 @@
 :root {
-  --main-container-width: 1180px;
-  --main-container-height: 525px;
-  --canvas-width: 680px;
-  --canvas-height: 525px;
-  --container-top: 30px;
+  --main-container-width: 100vw;
+  --main-container-height: 100vh;
+  --canvas-width: calc(var(--main-container-width) / 49 * 30);
+  --canvas-height: calc(var(--main-container-width) / 2 - 120px);
+  --container-top: calc((var(--main-container-height) - var(--canvas-height)) / 2);
   --left-container-left: 50px;
-  --right-container-left: 770px;
+  --right-container-left: 1270px;
 }
 
 .dela {
@@ -46,8 +46,10 @@ body {
   position: relative;
   height: var(--main-container-height);
   width: var(--main-container-width);
-  padding: 30px 50px;
-  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 main {
@@ -74,27 +76,27 @@ main {
 }
 
 #titleSSRB {
-  line-height: 100px;
-  font-size: 120px;
-  height: 100px;
+  line-height: calc(var(--canvas-height) / 24 * 5);
+  font-size: calc(var(--canvas-height) / 4);
+  height: calc(var(--canvas-height) / 24 * 5);
 }
 
 #titleDaibakuha {
-  line-height: 100px;
-  font-size: 140px;
-  height: 120px;
+  line-height: calc(var(--canvas-height) / 24 * 5);
+  font-size: calc(var(--canvas-height) / 24 * 7);
+  height: calc(var(--canvas-height) / 4);
 }
 
 #titleUnderText {
-  font-size: 20px;
+  font-size: calc(var(--canvas-height) / 24);
 }
 
 
 /* result container */
 #resultContainer {
   position: absolute;
-  top: calc(var(--container-top) + 10px);
-  left: calc(var(--left-container-left) + 10px);
+  top: var(--container-top);
+  left: calc(var(--left-container-left) - 10px);
   letter-spacing: 3px;
   animation-name: resultBoxSlide;
   animation-duration: 0.5s;
@@ -108,18 +110,22 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 555px;
-  height: 505px;
+  width: calc(var(--canvas-width) - 90px);
+  height: var(--canvas-height);
   border-radius: 10px;
   background-color: rgba(250,255,255,0.9);
   padding: 0 50px;
+  font-size: calc(var(--canvas-height) / 490 * 16);
 }
 
 @keyframes resultBoxSlide {
   0% {top: -100vh}
-  100% {top: 40px}
+  100% {top: var(--container-top);}
 }
 
+#resultBox h1 {
+  font-size: calc(var(--canvas-height) / 490 * 32);
+}
 #resultBox table {
   width: 70%;
 }
@@ -137,24 +143,25 @@ main {
 }
 #evaluate {
   font-family: "Knewave", system-ui;
-  font-size: 50px;
+  font-size: calc(var(--canvas-height) / 490 * 32);
 }
 #evaluateCommentContainer {
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 180px;
+  height: 360px;
 }
 #evaluateCommentBox {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-basis: 400px;
+  flex-basis: 74%;
   height: 80%;
   background-image: url(images/fukidashi.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: center center;
   white-space: pre-wrap;
   font-family: "Potta One", system-ui;
   font-weight: 400;
@@ -164,26 +171,18 @@ main {
 #evaluateComment {
   margin-left: 20px;
   margin-right: 30px;
+  max-width: 90%;
 }
 #resultSsrbtn {
-  flex-basis: 130px;
-}
-/* score container */
-#plusScore {
-  position: absolute;
-  top: calc(var(--container-top) + 140px);
-  right: 120px;
-  color: black;
+  flex-basis: 24%;
 }
 
+/* score container */
 #scoreContainer {
-  position: absolute;
-  left: var(--right-container-left);
-  top: var(--container-top);
-  font-size: 26px;
-  width: 430px;
-  height: calc(var(--canvas-height) - 40px);
-  padding: 20px 10px;
+  font-size:  calc(var(--canvas-height) / 490 * 24);
+  width: calc(100vw - var(--canvas-width) - 140px);
+  height: calc(var(--canvas-height) - 8%);
+  padding: 2% 1%;
   border-radius: 10px;
   background-color: rgba(220, 220, 220, 0.9);
   font-family: "Knewave", system-ui;
@@ -194,14 +193,34 @@ main {
   justify-content: start;
   align-items: center;
   flex-direction: column;
+  margin-left: 1%;
+  position: relative;
+}
+
+#timerContainer {
+  width: 97%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#timer {
+  font-size: calc(var(--canvas-height) / 490 * 32);
+  letter-spacing: 5px;
+  border-radius: 10px;
+  height: calc(var(--canvas-height) / 490 * 100);
+  text-align: center;
 }
 
 #scoreBox {
   border-radius: 10px;
-  width: 400px;
+  width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  position: relative;
 }
 
 #scoreTitle {
@@ -212,9 +231,17 @@ main {
 #score {
   display: inline-block;
   text-align: right;
-  font-size: 32px;
+  font-size: calc(var(--canvas-height) / 490 * 20);
   letter-spacing: 2px;
   width: 40%
+}
+
+#plusScore {
+  position: absolute;
+  top: calc(var(--canvas-height) / 490 * 30);
+  right: 10%;
+  color: rgb(30,30,30);
+  font-size: calc(var(--canvas-height) / 490 * 16);
 }
 
 #chainAndCommentAndDeleted {
@@ -230,41 +257,53 @@ main {
 }
 
 #chain {
-  font-size: 30px;
+  font-size: calc(var(--canvas-height) / 490 * 20);
   letter-spacing: 5px;
   border-radius: 10px;
   width: 100%;
-  height: 70px;
+  height: calc(var(--canvas-height) / 490 * 50);
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 10%;
+}
+#chain span {
+  font-size: calc(var(--canvas-height) / 490 * 40);
 }
 
 #comment {
-  font-size: 36px;
+  font-size: calc(var(--canvas-height) / 490 * 20);
   letter-spacing: 5px;
   border-radius: 10px;
   width: 100%;
-  height: 70px;
+  height: calc(var(--canvas-height) / 490 * 50);
   text-align: center;
 }
 
-#deletedssrb {
+#deletedSsrb {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-basis: 40%;
-
 }
 
+#deletedSsrbImg img {
+  width: calc(var(--main-container-width) / 1960 * 100);
+}
+
+#btn-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+}
 .button {
   font-family: "Knewave", system-ui;
-  width: 150px;
-  height: 50px;
-  border-radius: 20px;
+  width: calc(var(--canvas-width) / 1960 * 300);
+  height: calc(var(--canvas-width) / 1960 * 100);
+  border-radius: calc(var(--canvas-width) / 1960 * 30);
   background-color: rgb(220,120,120);
   border: 2px solid rgb(240,180,180);
   color: #fff;
-  font-size: 24px;
+  font-size: calc(var(--canvas-height) / 490 * 18);
   font-weight: bold;
   text-align: center;
   letter-spacing: 5px;
@@ -275,6 +314,26 @@ main {
   background-color: rgb(150,100,100);
   border: 2px solid rgb(180,120,120);
   color: #ccc;
+}
+
+.music-btn {
+  width: calc(var(--canvas-width) / 1960 * 100);
+  height: calc(var(--canvas-width) / 1960 * 100);
+  border-radius: 10px;
+  background-color: rgb(220,120,120);
+  border: 2px solid rgb(240,180,180);
+  padding: 2px 0;
+}
+
+.music-btn img {
+  width: calc(var(--canvas-width) / 1960 * 80);
+  height: calc(var(--canvas-width) / 1960 * 80);
+  display: block;
+}
+
+#musicOffButton {
+  background-color: rgb(120, 120, 120);
+  border: 2px solid rgb(150,150,150);
 }
 
 .visibleCountDown {
@@ -296,15 +355,6 @@ main {
   display: none;
 }
 
-#timerContainer {
-  width: 97%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 #ssrbtn {
   display: flex;
   justify-content: space-around;
@@ -314,20 +364,14 @@ main {
 #ssrbtn-serif {
   width: 60%;
 }
-#timer {
-  font-size: 46px;
-  letter-spacing: 5px;
-  border-radius: 10px;
-  height: 70px;
-  text-align: center;
-}
+
 
 #explosions {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 760px;
-  height: 100%;
+  top: var(--container-top);
+  left: var(--left-container-left);
+  width: var(--canvas-width);
+  height: var(--canvas-height);
 }
 
 .anime_text {
@@ -384,7 +428,6 @@ main {
   top: 0;
   width: 100%;
   height: 100%;
-  min-width: 1200px;
 }
 
 .htpHidden {
@@ -393,12 +436,16 @@ main {
 }
 
 .htpContainer {
-  width: 85%;
-  height: 72%;
+  width: 90%;
+  height: 86%;
   background-color: rgba(230, 230, 230, 1);
   border-radius: 10px;
   display: none;
-  padding: 40px;
+  padding: 2%;
+}
+
+.htpContainer p {
+  font-size: calc(var(--canvas-height) / 490 * 14);
 }
 
 .visibleHtpContent {
@@ -415,7 +462,8 @@ main {
   width: 100%;
 }
 
-.htpTitle h2 {
+.htpTitle h1 {
+  font-size: calc(var(--canvas-height) / 490 * 24);
   width: 90%;
   margin: 0;
   padding: 5px 10px;
@@ -424,9 +472,9 @@ main {
 }
 
 #closeHtpButton {
-  width: 50px;
-  height:50px;
-  font-size: 30px;
+  width: calc(var(--canvas-width) / 1960 * 100);
+  height: calc(var(--canvas-width) / 1960 * 100);
+  font-size: calc(var(--canvas-height) / 490 * 20);
 }
 
 .visibleHtp {
@@ -461,7 +509,12 @@ main {
 .htpContent {
   width: 100%;
   height: 100%;
-  max-height: 320px;
+}
+
+.htpContent h3 {
+  font-size: calc(var(--canvas-height) / 490 * 20);
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .htpTableWrapper {
@@ -489,7 +542,8 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width:420px;
+  width: 100%;
+  font-size: calc(var(--canvas-height) / 490 * 16);
 }
 
 .htpChainTableWrapper table,
@@ -498,6 +552,10 @@ main {
 .htpChainTableWrapper td {
   border: 1px solid black;
   border-collapse: collapse;
+}
+
+.htpChainTableWrapper table {
+  width: 50%;
 }
 
 .htpChainTableWrapper th {
@@ -532,6 +590,23 @@ tr td:first-child {
   border-collapse: collapse;
 }
 
+.htpScoreTableWrapper small {
+  font-size: calc(var(--canvas-height) / 490 * 12);
+  width: 96%;
+  margin-top: 5px;
+  margin-left: 4%;
+}
+
+.htpScoreTable {
+  width: 96%;
+  margin-left: 4%;
+  font-size: calc(var(--canvas-height) / 490 * 16);
+}
+
+.htpScoreTable table {
+  width: 100%;
+}
+
 .htpFooter {
   display: flex;
   justify-content: space-between;
@@ -561,12 +636,21 @@ tr td:first-child {
   height: 40px !important;
 }
 
-@media screen and (max-width: 959.5px) {
+#countDown {
+  width: 100vw;
+  height: 100vh;
+}
+@media screen and (max-width: 960px) {
+  #scoreContainer {
+    width: calc(100vw - var(--canvas-width) - 120px);
+  }
+}
+@media screen and (max-width: 768px) {
   #mainContainer {
     display: none;
   }
 }
-@media screen and (min-width: 959px) {
+@media screen and (min-width: 768px) {
   #noWorkingWindow {
     display: none;
   }
