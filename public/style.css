@@ -368,8 +368,8 @@ main {
 
 #explosions {
   position: absolute;
-  top: var(--container-top);
-  left: var(--left-container-left);
+  top: 0;
+  left: 0;
   width: var(--canvas-width);
   height: var(--canvas-height);
 }
