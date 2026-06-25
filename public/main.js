@@ -832,11 +832,6 @@ document.addEventListener("mouseup", function() {
 
           explosionsElement.appendChild(explosion)
 
-          console.log('poX : ' + poX)
-          console.log('poY : ' + poY)
-          console.log('left : ' + explosion.style.left)
-          console.log('top : ' + explosion.style.top)
-
           setTimeout(function() {
             explosionsElement.innerHTML = "";
           }, explosionTime);
