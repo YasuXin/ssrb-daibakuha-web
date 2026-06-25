@@ -114,7 +114,7 @@ const switchOffMusic = () => {
 
 window.addEventListener('resize', () => {
   width = window.innerWidth / 1960 * 1200;
-  height = window.innerWidth / 2 - 60;
+  height = window.innerWidth / 2 - 120;
   x_rate = window.innerWidth / 1960;
   ballRad = 60 * x_rate;
   skeltonRad = 40 * x_rate;

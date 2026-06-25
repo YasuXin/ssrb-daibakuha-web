@@ -18,47 +18,48 @@
 
     <main>
       <div id="canvas"></div>
+      <div id="explosions" class="hidden"></div>
+      <div id="titleContainer">
+        <div id="titleText" class="dela">
+          <div id="titleSSRB">SSRB</div>
+          <div id="titleDaibakuha">大爆破</div>
+          <div id="titleUnderText">硬い岩盤にぶち当たったからおまえら自爆しろｗ</div>
+          <div id="images"></div>
+        </div>
+      </div>
+
+      <div id="resultContainer" class="knewave hidden">
+        <div id="resultBox">
+          <h1>RESULT</h1>
+          <table>
+            <tr>
+              <th>一度に獲得した最大得点　：　</th>
+              <td id="bestScore"></td>
+            </tr>
+            <tr>
+              <th>最終スコア　：　</th>
+              <td id="lastScore"></td>
+            </tr>
+            <tr>
+              <th>最大連鎖数　：　</th>
+              <td id="bestChain"></td>
+            </tr>
+
+          </table>
+
+          <div>総合評価 : <span id="evaluate"></span></div>
+
+          <div id="evaluateCommentContainer">
+            <div id="evaluateCommentBox">
+              <div id="evaluateComment"></div>
+            </div>
+            <div id="resultSsrbtn"></div>
+          </div>
+
+        </div>
+      </div>
     </main>
 
-    <div id="titleContainer">
-      <div id="titleText" class="dela">
-        <div id="titleSSRB">SSRB</div>
-        <div id="titleDaibakuha">大爆破</div>
-        <div id="titleUnderText">硬い岩盤にぶち当たったからおまえら自爆しろｗ</div>
-        <div id="images"></div>
-      </div>
-    </div>
-
-    <div id="resultContainer" class="knewave hidden">
-      <div id="resultBox">
-        <h1>RESULT</h1>
-        <table>
-          <tr>
-            <th>一度に獲得した最大得点　：　</th>
-            <td id="bestScore"></td>
-          </tr>
-          <tr>
-            <th>最終スコア　：　</th>
-            <td id="lastScore"></td>
-          </tr>
-          <tr>
-            <th>最大連鎖数　：　</th>
-            <td id="bestChain"></td>
-          </tr>
-
-        </table>
-
-        <div>総合評価 : <span id="evaluate"></span></div>
-
-        <div id="evaluateCommentContainer">
-          <div id="evaluateCommentBox">
-            <div id="evaluateComment"></div>
-          </div>
-          <div id="resultSsrbtn"></div>
-        </div>
-
-      </div>
-    </div>
 
     <div id="scoreContainer">
       <div id="timerContainer">
@@ -94,8 +95,6 @@
       </div>
 
     </div>
-
-    <div id="explosions" class="hidden"></div>
 
     <div id="htpWrapper" class="htpHidden">
 
@@ -476,7 +475,7 @@
   <div id="noWorkingWindow">
     <h1 class="dela">SSRB大爆破</h1>
     <div>画面サイズが小さすぎて表示できません</div>
-    <div><small>幅769px以上で表示してください</small></div>
+    <div><small>幅960px以上で表示してください</small></div>
     <div style="margin-top: 10px;">＼ごめんね！／</div>
     <img src="images/ssrb-1-0.png" alt="SSRB">
     <div>

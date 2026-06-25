@@ -55,13 +55,14 @@ body {
 main {
   width: var(--canvas-width);
   height: var(--canvas-height);
+  position: relative;
 }
 
 /* title box */
 #titleContainer {
   position: absolute;
-  top: var(--container-top);
-  left: var(--left-container-left);
+  top: 0;
+  left: 0;
 }
 
 #titleText {
@@ -95,8 +96,8 @@ main {
 /* result container */
 #resultContainer {
   position: absolute;
-  top: var(--container-top);
-  left: calc(var(--left-container-left) - 10px);
+  top: 0;
+  left: 0;
   letter-spacing: 3px;
   animation-name: resultBoxSlide;
   animation-duration: 0.5s;
@@ -110,7 +111,7 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: calc(var(--canvas-width) - 90px);
+  width: calc(var(--canvas-width) - 100px);
   height: var(--canvas-height);
   border-radius: 10px;
   background-color: rgba(250,255,255,0.9);
@@ -120,7 +121,7 @@ main {
 
 @keyframes resultBoxSlide {
   0% {top: -100vh}
-  100% {top: var(--container-top);}
+  100% {top: 0;}
 }
 
 #resultBox h1 {
@@ -143,7 +144,7 @@ main {
 }
 #evaluate {
   font-family: "Knewave", system-ui;
-  font-size: calc(var(--canvas-height) / 490 * 32);
+  font-size: calc(var(--canvas-height) / 490 * 48);
 }
 #evaluateCommentContainer {
   display: flex;
@@ -169,9 +170,8 @@ main {
 
 }
 #evaluateComment {
-  margin-left: 20px;
-  margin-right: 30px;
-  max-width: 90%;
+  padding: 0 12% 0 10%;
+  max-width: 78%;
 }
 #resultSsrbtn {
   flex-basis: 24%;
